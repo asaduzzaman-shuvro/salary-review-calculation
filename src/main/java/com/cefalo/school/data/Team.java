@@ -5,10 +5,19 @@ import java.util.List;
 public class Team implements Entity{
     private Employee teamLead;
     private List<Employee> employees;
+    private String name;
 
-    public Team(List<Employee> employees) {
+    public Team(List<Employee> employees, String name) {
         this.employees = employees;
+        this.name = name;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Employee> getEmployees() {
@@ -17,11 +26,13 @@ public class Team implements Entity{
 
     public boolean addMember(Employee employee) {
 
-        return  false;
+        this.employees.add(employee);
+        return  true;
     }
 
     public boolean removeMember(Employee employee) {
-        return  false;
+        this.employees.remove(employee);
+        return true;
     }
 
     public Employee getTeamLead() {
@@ -30,7 +41,10 @@ public class Team implements Entity{
 
     public void setTeamLead(Employee teamLead) {
         this.teamLead = teamLead;
+        this.teamLead.setRole(Role.TeamLead);
     }
+
+
 
     @Override
     public Double calculateReview() {
@@ -40,4 +54,19 @@ public class Team implements Entity{
         }
         return review;
     }
+
+
+    @Override
+    public void printInformation() {
+        System.out.println("Team Name: "+name+ " ReviewedSalary: "+calculateReview());
+        if (teamLead != null){
+            System.out.println("TeamLead: "+ teamLead.getName());
+//            teamLead.printInformation();
+        }
+        for(Employee employee : employees){
+            employee.printInformation();
+        }
+    }
+
+
 }
