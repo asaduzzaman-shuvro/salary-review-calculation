@@ -2,18 +2,13 @@ package com.cefalo.school.data;
 
 import java.util.List;
 
-public class Team {
-    private Entity entity;
+public class Team implements Entity{
     private Employee teamLead;
     private List<Employee> employees;
 
-    public Team(Entity entity, List<Employee> employees) {
-        this.entity = entity;
+    public Team(List<Employee> employees) {
         this.employees = employees;
-    }
 
-    public Entity getEntity() {
-        return entity;
     }
 
     public List<Employee> getEmployees() {
@@ -35,5 +30,14 @@ public class Team {
 
     public void setTeamLead(Employee teamLead) {
         this.teamLead = teamLead;
+    }
+
+    @Override
+    public Double calculateReview() {
+        Double review = 0.0;
+        for(Employee employee : employees){
+            review += employee.calculateReview();
+        }
+        return review;
     }
 }

@@ -1,40 +1,20 @@
 package com.cefalo.school.data;
 
 import com.cefalo.school.calculator.Impact;
+import com.cefalo.school.calculator.ReviewCalculator;
 import com.cefalo.school.calculator.Score;
 
-public class Employee {
-    private Entity teamEntity;
-    private Entity entity;
-    private Role role;
+public class Employee implements Entity{
+
     private Double salary;
     private Impact impact;
     private Score score;
+    private Role role = Role.Developer;
 
-    public Employee(Entity entity, Entity teamEntity, Role role, Double salary, Impact impact, Score score) {
-        this.entity = entity;
-        this.role = role;
+    public Employee(Double salary, Impact impact, Score score) {
         this.salary = salary;
-        this.teamEntity = teamEntity;
         this.impact = impact;
         this.score = score;
-    }
-
-
-    public Entity getTeamEntity() {
-        return teamEntity;
-    }
-
-    public Entity getEntity() {
-        return entity;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Double getSalary() {
@@ -59,5 +39,19 @@ public class Employee {
 
     public void setScore(Score score) {
         this.score = score;
+    }
+
+    @Override
+    public Double calculateReview() {
+        ReviewCalculator calculator = new ReviewCalculator(getSalary(),getScore(), getImpact());
+        return calculator.calculate();
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -2,13 +2,12 @@ package com.cefalo.school.data;
 
 import java.util.List;
 
-public class Project {
+public class Project implements Entity{
     private Employee projectManager;
-    private Entity entity;
+
     private List<Team> teams;
 
-    public Project(Entity entity, List<Team> teams) {
-        this.entity = entity;
+    public Project(List<Team> teams) {
         this.teams = teams;
     }
 
@@ -18,11 +17,6 @@ public class Project {
 
     public boolean removeTeam(Team team){
         return  false;
-    }
-
-
-    public Entity getEntity() {
-        return entity;
     }
 
     public List<Team> getTeams() {
@@ -35,5 +29,14 @@ public class Project {
 
     public void setProjectManager(Employee projectManager) {
         this.projectManager = projectManager;
+    }
+
+    @Override
+    public Double calculateReview() {
+        Double review = 0.0;
+        for(Team team : teams){
+            review += team.calculateReview();
+        }
+        return review;
     }
 }
